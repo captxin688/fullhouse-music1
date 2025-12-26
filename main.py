@@ -32,10 +32,12 @@ ydl_opts = {
     'no_warnings': False, # 2. เปลี่ยนเป็น False จะได้เห็นคำเตือน
     'default_search': 'auto',
     'source_address': '0.0.0.0',
+    'cookiefile': 'cookies.txt',
     # 3. เพิ่มส่วนนี้เข้าไป (สำคัญ)
     'http_headers': {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
     }
+    
 }
 
 @bot.event
