@@ -21,15 +21,22 @@ music_queue = []
 # ปรับ FFmpeg ให้ Buffer เยอะขึ้น กันกระตุก
 ffmpeg_options = {
     'options': '-vn',
-    "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5"
+    # เพิ่ม reconnect_at_eof และปรับ buffer ให้เหมาะสม
+    "before_options": (
+        "-reconnect 1 "
+        "-reconnect_streamed 1 "
+        "-reconnect_delay_max 5 "
+        "-reconnect_at_eof 1 " # เพิ่มตัวนี้ ช่วยตอนเน็ตหลุดท้ายเพลง
+        "-nostdin" # ป้องกัน ffmpeg รอรับ input จนค้าง
+    )
 }
 
 # ปรับ yt_dlp ให้เบาเครื่องที่สุด
 ydl_opts = {
-    'format': 'bestaudio/best',
+    'format': 'bestaudio[ext=m4a]/best[height<=480]',
     'noplaylist': True,
-    'quiet': False,       # 1. เปลี่ยนเป็น False เพื่อให้เราเห็น Error จริงๆ ใน Log
-    'no_warnings': False, # 2. เปลี่ยนเป็น False จะได้เห็นคำเตือน
+    'quiet': True,       # 1. เปลี่ยนเป็น False เพื่อให้เราเห็น Error จริงๆ ใน Log
+    'no_warnings': True, # 2. เปลี่ยนเป็น False จะได้เห็นคำเตือน
     'default_search': 'auto',
     'source_address': '0.0.0.0',
     'cookiefile': 'cookies.txt',
